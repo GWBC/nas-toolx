@@ -120,8 +120,10 @@ class Config(object):
     def init_config(self):
         try:
             if not self._config_path:
-                print("【Config】NASTOOL_CONFIG 环境变量未设置，程序无法工作，正在退出...")
-                quit()
+                self._config_path = os.path.join(os.path.dirname(sys.argv[0]), "..", "config")
+                if not os.path.exists(self._config_path):
+                    os.makedirs(self._config_path)
+                self._config_path = os.path.join( self._config_path, "config.yaml")
             if not os.path.exists(self._config_path):
                 cfg_tp_path = os.path.join(self.get_inner_config_path(), "config.yaml")
                 cfg_tp_path = cfg_tp_path.replace("\\", "/")
