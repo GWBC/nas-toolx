@@ -50,5 +50,5 @@ jobs:
             linux/arm64
           push: true
           tags: |
-            ${{ secrets.DOCKER_USERNAME }}/nas-tools:latest
-            ${{ secrets.DOCKER_USERNAME }}/nas-tools:${{ env.app_version }}
+            ${{ secrets.DOCKER_USERNAME }}/nastoolx:latest
+            ${{ secrets.DOCKER_USERNAME }}/nastoolx:${{ env.app_version }}
