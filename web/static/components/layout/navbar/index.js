@@ -526,7 +526,7 @@ export class LayoutNavbar extends CustomElement {
     this.layout_userpris = navbar_list.map((item) => (item.name));
     this._active_name = "";
     this._update_appversion = "";
-    this._update_url = "https://github.com/jxxghp/nas-tools";
+    this._update_url = "https://github.com/GWBC/nas-toolx.git";
     this._is_update = false;
     this.classList.add("navbar","navbar-vertical","navbar-expand-lg","lit-navbar-fixed","lit-navbar","lit-navbar-hide-scrollbar");
   }
@@ -571,7 +571,7 @@ export class LayoutNavbar extends CustomElement {
             url = ret.url;
             break;
           case 2:
-            url = "https://github.com/jxxghp/nas-tools/commits/master"
+            url = "https://github.com/GWBC/nas-toolx.git/commits/master"
             break;
         }
         if (url) {
@@ -717,7 +717,7 @@ export class LayoutNavbar extends CustomElement {
           <div class="d-flex flex-row flex-grow-1 lit-navbar-hide-scrollbar">
             <div class="d-flex flex-column flex-grow-1">
               <h1 class="mt-3" style="text-align:center;">
-                <img src="../static/img/logo-blue.png" alt="NAStool" class="lit-navbar-logo">
+                <img src="../static/img/logo-blue.png" alt="NAStoolx" class="lit-navbar-logo">
               </h1>
               <div class="accordion px-2 py-2 flex-grow-1">
                 ${navbar_list.map((item, index) => ( html`

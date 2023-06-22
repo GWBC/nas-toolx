@@ -5,7 +5,7 @@
 <html lang="en">
 <head>
   {{ HEAD.meta_link() }}
-  <title>NAStool - 资源归集、整理自动化工具</title>
+  <title>NAStoolx - 资源归集、整理自动化工具</title>
   <!-- CSS files -->
   <link href="../static/css/font-awesome.min.css" rel="stylesheet">
   <link href="../static/css/tabler.min.css" rel="stylesheet"/>
@@ -2354,7 +2354,7 @@
     NProgress.start();
     $("#page_content").load(page, {}, function (response, status, xhr) {
       NProgress.done();
-      if ($("#page_content").find("title").first().text() === "登录 - NAStool") {
+      if ($("#page_content").find("title").first().text() === "登录 - NAStoolx") {
         window.location.reload();
       } else {
         fresh_tooltip();
