@@ -6,8 +6,8 @@ on:
       - master
     paths:
       - version.py
-      - docker/Dockerfile
-      - .github/workflows/build.yml
+      - docker/Dockerfile-Base
+      - .github/workflows/build-base.yml
       - requirements.txt
 jobs:
   build:
