@@ -1,4 +1,4 @@
-﻿alembic==1.11.1
+alembic==1.11.1
 aniso8601==9.0.1
 anitopy==2.1.1
 anyio==3.7.0
