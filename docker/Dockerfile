@@ -17,6 +17,7 @@ RUN python_ver=$(python3 -V | awk '{print $2}') \
     && git config --global pull.ff only \
     && git clone --depth=1 ${REPO_URL} ${WORKDIR} \
     && git config --global --add safe.directory ${WORKDIR} \
+    && chmod 777 /nas-tools/docker/entrypoint.sh
 EXPOSE 3000
 VOLUME ["/config"]
-ENTRYPOINT ["sh /nas-tools/docker/entrypoint.sh"]
+ENTRYPOINT ["/nas-tools/docker/entrypoint.sh"]
