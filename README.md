@@ -1,19 +1,7 @@
 ![logo-blue](https://user-images.githubusercontent.com/51039935/197520391-f35db354-6071-4c12-86ea-fc450f04bc85.png)
 # NAS媒体库资源归集、整理自动化工具
 
-[![GitHub stars](https://img.shields.io/github/stars/GWBC/nas-toolx?style=plastic)](https://github.com/GWBC/nas-toolx.git/stargazers)
-[![GitHub forks](https://img.shields.io/github/forks/GWBC/nas-toolx?style=plastic)](https://github.com/GWBC/nas-toolx.git/network/members)
-[![GitHub issues](https://img.shields.io/github/issues/GWBC/nas-toolx?style=plastic)](https://github.com/GWBC/nas-toolx.git/issues)
-[![GitHub license](https://img.shields.io/github/license/GWBC/nas-toolx?style=plastic)](https://github.com/GWBC/nas-toolx.git/blob/master/LICENSE.md)
-[![Docker pulls](https://img.shields.io/docker/pulls/GWBC/nas-toolx?style=plastic)](https://hub.docker.com/r/GWBC/nas-toolx)
-[![Platform](https://img.shields.io/badge/platform-amd64/arm64-pink?style=plastic)](https://hub.docker.com/r/GWBC/nas-toolx)
-
-
 Docker：https://hub.docker.com/r/gwbc/nastoolx
-
-TG频道：https://t.me/nastool
-
-WIKI：https://github.com/GWBC/nas-toolx.git/wiki
 
 API: http://localhost:3000/api/v1/
 
@@ -58,19 +46,6 @@ python3 -m pip install -r requirements.txt
 export NASTOOL_CONFIG="/xxx/config/config.yaml"
 nohup python3 run.py & 
 ```
-
-### 3、Windows
-下载exe文件，双击运行即可，会自动生成配置文件目录
-
-https://github.com/GWBC/nas-toolx.git/releases
-
-### 4、群晖套件
-添加矿神群晖SPK套件源直接安装：
-
-https://spk.imnks.com/
-
-https://spk7.imnks.com/
-
 
 ## 配置
 ### 1、申请相关API KEY
@@ -243,8 +218,3 @@ https://spk7.imnks.com/
    python3 app/filetransfer.py -m link -s /from/path -d /to/path
    ```
 
-## 鸣谢
-* 程序UI模板及图标来源于开源项目<a href="https://github.com/tabler/tabler">tabler</a>，此外项目中还使用到了开源模块：<a href="https://github.com/igorcmoura/anitopy" target="_blank">anitopy</a>、<a href="https://github.com/AnthonyBloomer/tmdbv3api" target="_blank">tmdbv3api</a>、<a href="https://github.com/pkkid/python-plexapi" target="_blank">python-plexapi</a>、<a href="https://github.com/rmartin16/qbittorrent-api">qbittorrent-api</a>、<a href="https://github.com/Trim21/transmission-rpc">transmission-rpc</a>等
-* 感谢 <a href="https://github.com/devome" target="_blank">nevinee</a> 完善docker构建
-* 感谢 <a href="https://github.com/tbc0309" target="_blank">tbc0309</a> 适配群晖套件
-* 感谢 PR 代码、完善WIKI、发布教程的所有大佬
