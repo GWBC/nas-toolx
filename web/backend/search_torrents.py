@@ -135,18 +135,14 @@ def search_medias_for_web(content, ident_flag=True, filters=None, tmdbid=None, m
                                           match_media=media_info,
                                           in_from=SearchType.WEB)
     # 使用第二名称重新搜索
-    if ident_flag \
-            and len(media_list) == 0 \
-            and second_search_name \
-            and second_search_name != first_search_name:
+    if ident_flag and second_search_name and second_search_name != first_search_name:
         search_process.start('search')
-        search_process.update(ptype='search',
-                              text="%s 未检索到资源,尝试通过 %s 重新检索 ..." % (first_search_name, second_search_name))
-        log.info("【Searcher】%s 未检索到资源,尝试通过 %s 重新检索 ..." % (first_search_name, second_search_name))
-        media_list = Searcher().search_medias(key_word=second_search_name,
+        search_process.update(ptype='search', text="再次通过 %s 检索 ..." % (second_search_name))
+        log.info("【Searcher】 再次通过 %s 检索  ..." % (second_search_name))
+        media_list.extend(Searcher().search_medias(key_word=second_search_name,
                                               filter_args=filter_args,
                                               match_media=media_info,
-                                              in_from=SearchType.WEB)
+                                              in_from=SearchType.WEB))
     # 清空缓存结果
     dbhepler = DbHelper()
     dbhepler.delete_all_search_torrents()

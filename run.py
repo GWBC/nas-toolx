@@ -34,6 +34,7 @@ if is_windows_exe:
 from config import Config
 import log
 from web.main import App
+from web.action import WebAction
 from app.utils import SystemUtils, ConfigLoadCache
 from app.utils.commons import INSTANCES
 from app.db import init_db, update_db, init_data
@@ -108,6 +109,8 @@ def init_system():
 
 def start_service():
     log.console("开始启动服务...")
+    # webaction图片缓存初始化
+    WebAction.ImgCacheInit()
     # 启动虚拟显示
     DisplayHelper()
     # 启动定时服务

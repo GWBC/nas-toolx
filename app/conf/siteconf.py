@@ -478,65 +478,65 @@ class SiteConf:
     }
     # 公共BT站点
     PUBLIC_TORRENT_SITES = {
-        'rarbg.to': {
-            "parser": "Rarbg",
-            "proxy": True,
-            "language": "en"
-        },
+        # 站点已关
+        # 'rarbg.to': {
+        #     "parser": "Rarbg",
+        #     "proxy": True,
+        #     "language": "en"
+        # },
         'dmhy.org': {
-            "proxy": True
-        },
-        'eztv.re': {
-            "proxy": True,
-            "language": "en"
-        },
-        'acg.rip': {
             "proxy": False
         },
-        'thepiratebay.org': {
-            "proxy": True,
-            "render": True,
+        'eztv.re': {
+            "proxy": False,
             "language": "en"
         },
+        # 'acg.rip': {
+        #     "proxy": False
+        # },
+        # 'thepiratebay.org': {
+        #     "proxy": False,
+        #     "render": True,
+        #     "language": "en"
+        # },
         'nyaa.si': {
-            "proxy": True
+            "proxy": False
         },
         '1337x.to': {
-            "proxy": True,
+            "proxy": False,
             "language": "en"
         },
-        'ext.to': {
-            "proxy": True,
-            "language": "en",
-            "parser": "RenderSpider"
-        },
-        'torrentgalaxy.to': {
-            "proxy": True,
-            "language": "en"
-        },
+        # 'ext.to': {
+        #     "proxy": False,
+        #     "language": "en",
+        #     "parser": "RenderSpider"
+        # },
+        # 'torrentgalaxy.to': {
+        #     "proxy": False,
+        #     "language": "en"
+        # },
         'mikanani.me': {
             "proxy": False
         },
-        'gaoqing.fm': {
-            "proxy": False
-        },
+        # 'gaoqing.fm': {
+        #     "proxy": False
+        # },
         'www.mp4ba.vip': {
             "proxy": False,
             "referer": True
         },
-        'www.miobt.com': {
-            "proxy": True
-        },
+        # 'www.miobt.com': {
+        #     "proxy": False,
+        #     "referer": True
+        # },
         'katcr.to': {
-            "proxy": True,
-            "language": "en"
+            "proxy": False,
+            "language": "en",
+            "referer": True
         },
-        'btsow.quest': {
-            "proxy": True
-        },
-        'www.hdpianyuan.com': {
-            "proxy": False
-        },
+        # 'btsow.quest': {
+        #     "proxy": False
+        # },
         'skrbtla.top': {
             "proxy": False,
             "referer": True,

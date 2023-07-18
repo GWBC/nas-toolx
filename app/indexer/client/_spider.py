@@ -20,9 +20,10 @@ class TorrentSpider(feapder.AirSpider):
     __custom_setting__ = dict(
         USE_SESSION=True,
         SPIDER_THREAD_COUNT=1,
-        SPIDER_MAX_RETRY_TIMES=0,
-        REQUEST_LOST_TIMEOUT=10,
-        RETRY_FAILED_REQUESTS=False,
+        SPIDER_MAX_RETRY_TIMES=3,       #重试次数
+        REQUEST_LOST_TIMEOUT=10,        
+        RETRY_FAILED_REQUESTS=False,    
+        SPIDER_SLEEP_TIME=[1, 2],       #重试间隔时间1到2秒
         LOG_LEVEL="ERROR",
         RANDOM_HEADERS=False,
         WEBDRIVER=dict(
@@ -80,7 +81,7 @@ class TorrentSpider(feapder.AirSpider):
     torrents_info_array = []
 
     def setparam(self, indexer,
-                 keyword: [str, list] = None,
+                 keyword: "str | list" = None,
                  page=None,
                  referer=None,
                  mtype: MediaType = None):
@@ -115,18 +116,12 @@ class TorrentSpider(feapder.AirSpider):
             self.ua = Config().get_ua()
         if indexer.proxy:
             self.proxies = Config().get_proxies()
-        if indexer.cookie:
-            self.cookie = indexer.cookie
-        if referer:
-            self.referer = referer
+        self.cookie = indexer.cookie
         self.result_num = Config().get_config('pt').get('site_search_result_num') or 100
         self.torrents_info_array = []
 
     def start_requests(self):
-        """
-        开始请求
-        """
-
+        # 开始请求
         if not self.search or not self.domain:
             self.is_complete = True
             return
@@ -153,7 +148,6 @@ class TorrentSpider(feapder.AirSpider):
 
         # 关键字搜索
         if self.keyword:
-
             if isinstance(self.keyword, list):
                 # 批量查询
                 if self.batch:
@@ -241,12 +235,18 @@ class TorrentSpider(feapder.AirSpider):
     def download_midware(self, request):
         request.headers = {
             "User-Agent": self.ua,
-            "Cookie": self.cookie
         }
+        
+        if self.cookie:
+            request.headers["Cookie"] = self.cookie
+
         if self.proxies:
             request.proxies = self.proxies
         return request
-
+    def failed_request(self, request, response, e):
+        log.error(f"【Spider】请求失败：{e}")
+        self.is_complete = True
+        
     def Gettitle_default(self, torrent):
         # title default
         if 'title' not in self.fields:
@@ -613,7 +613,7 @@ class TorrentSpider(feapder.AirSpider):
         """
         try:
             # 获取站点文本
-            html_text = response.extract()
+            html_text = response.content.decode(response.code)
             if not html_text:
                 self.is_complete = True
                 return

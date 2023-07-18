@@ -246,6 +246,7 @@ class _IIndexClient(metaclass=ABCMeta):
                     f"【{self.index_type}】{torrent_name} 是 {meta_info.type.value}，不匹配类型：{filter_args.get('type').value}")
                 index_rule_fail += 1
                 continue
+            
             # 检查订阅过滤规则匹配
             match_flag, res_order, match_msg = self.filter.check_torrent_filter(meta_info=meta_info,
                                                                                 filter_args=filter_args,
@@ -261,16 +262,13 @@ class _IIndexClient(metaclass=ABCMeta):
                 media_info = meta_info
             else:
                 # 0-识别并模糊匹配；1-识别并精确匹配
-                if meta_info.imdb_id \
-                        and match_media.imdb_id \
-                        and str(meta_info.imdb_id) == str(match_media.imdb_id):
+                if meta_info.imdb_id and match_media.imdb_id and str(meta_info.imdb_id) == str(match_media.imdb_id):
                     # IMDBID匹配，合并媒体数据
                     media_info = self.media.merge_media_info(meta_info, match_media)
                 else:
                     # 查询缓存
                     cache_info = self.media.get_cache_info(meta_info)
-                    if match_media \
-                            and str(cache_info.get("id")) == str(match_media.tmdb_id):
+                    if match_media and str(cache_info.get("id")) == str(match_media.tmdb_id):
                         # 缓存匹配，合并媒体数据
                         media_info = self.media.merge_media_info(meta_info, match_media)
                     else:

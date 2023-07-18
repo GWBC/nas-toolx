@@ -116,6 +116,11 @@ class BuiltinIndexer(_IIndexClient):
                filter_args: dict,
                match_media,
                in_from: SearchType):
+       
+        # 去掉过滤
+        match_media = None
+        filter_args = {}
+        
         """
         根据关键字多线程检索
         """

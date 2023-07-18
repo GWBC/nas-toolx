@@ -6,6 +6,7 @@ import os.path
 import re
 import shutil
 import signal
+import requests
 from math import floor
 from urllib.parse import unquote
 
@@ -44,12 +45,31 @@ from app.utils.types import RmtMode, OsType, SearchType, DownloaderType, SyncTyp
 from config import RMT_MEDIAEXT, TMDB_IMAGE_W500_URL, RMT_SUBEXT, Config
 from web.backend.search_torrents import search_medias_for_web, search_media_by_message
 from web.backend.web_utils import WebUtils
+import threading
 
+def clearTmpFile(path:str):
+     for root, dirs, files in os.walk(path):
+        for name in files:
+            if name.find(".tmp") > 0:
+                try:
+                    os.remove(os.path.join(root, name))
+                except:
+                    pass
 
 class WebAction:
     dbhelper = None
     _actions = {}
     TvTypes = ['TV', '电视剧']
+    
+    _cachePath = ""
+    _cacheLock = threading.Lock()
+
+    @staticmethod
+    def ImgCacheInit():
+        WebAction._cachePath = os.path.join(os.path.dirname(__file__), "static", "cache")
+        os.makedirs(WebAction._cachePath, exist_ok=True)
+        clearTmpFile(WebAction._cachePath)
+        print("图片缓存地址：", WebAction._cachePath)
 
     def __init__(self):
         self.dbhelper = DbHelper()
@@ -2445,6 +2465,35 @@ class WebAction:
                 'fav': fav,
                 'rssid': rssid
             })
+            
+            img = res.get("image")
+            imgPrefix = ''
+            headers = {'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36 Edg/112.0.1722.48'}
+            if img.find("doubanio.com") > 0:
+                imgPrefix = "duban_"
+                headers['Referer'] ='https://www.douban.com/'
+            
+            if len(img) != 0:
+                filename = os.path.join(self._cachePath, imgPrefix + str(res.get("orgid")))
+                tmpFilename = filename + ".tmp"
+                self._cacheLock.acquire()
+                if not os.path.exists(filename) and not os.path.exists(tmpFilename):
+                    try:                    
+                        with open(tmpFilename, "wb") as f:
+                            self._cacheLock.release()
+                            rsp = requests.get(img, headers=headers)                       
+                            f.write(rsp.content)
+                        os.rename(tmpFilename, filename)
+                    except Exception as e:
+                        try:
+                            self._cacheLock.release()
+                        except:
+                            pass
+                        print("图片缓存失败:", e)
+                else:
+                    self._cacheLock.release()
+                res["image"] = "static/cache/" + os.path.basename(filename)            
+                
         return {"code": 0, "Items": res_list}
 
     def get_downloaded(self, data):
