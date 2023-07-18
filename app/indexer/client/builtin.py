@@ -118,8 +118,8 @@ class BuiltinIndexer(_IIndexClient):
                in_from: SearchType):
        
         # 去掉过滤
-        match_media = None
-        filter_args = {}
+        #match_media = None
+        #filter_args = {}
         
         """
         根据关键字多线程检索
