@@ -19,9 +19,9 @@ class TorrentSpider(feapder.AirSpider):
     _webdriver_path = SystemUtils.get_webdriver_path()
     __custom_setting__ = dict(
         USE_SESSION=True,
-        SPIDER_THREAD_COUNT=4,
-        SPIDER_MAX_RETRY_TIMES=1,       #重试次数
-        REQUEST_LOST_TIMEOUT=6,        
+        SPIDER_THREAD_COUNT=1,
+        SPIDER_MAX_RETRY_TIMES=2,       #重试次数
+        REQUEST_LOST_TIMEOUT=10,        
         RETRY_FAILED_REQUESTS=False,    
         SPIDER_SLEEP_TIME=[1, 2],       #重试间隔时间1到2秒
         LOG_LEVEL="ERROR",

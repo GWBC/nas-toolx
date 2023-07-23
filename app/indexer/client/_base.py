@@ -18,6 +18,7 @@ class _IIndexClient(metaclass=ABCMeta):
     host = None
     filter = None
     progress = None
+    _keyword = ''
     _reverse_title_sites = ['keepfriends']
 
     def __init__(self):
@@ -58,6 +59,7 @@ class _IIndexClient(metaclass=ABCMeta):
         """
         if not indexer or not key_word:
             return None
+        self._keyword = key_word
         if filter_args is None:
             filter_args = {}
         # 不在设定搜索范围的站点过滤掉
@@ -227,6 +229,14 @@ class _IIndexClient(metaclass=ABCMeta):
             if filter_args.get("seeders") and not indexer.public and str(seeders) == "0":
                 log.info(f"【{self.index_type}】{torrent_name} 做种数为0")
                 index_rule_fail += 1
+                continue
+            if len(self._keyword) == 0:
+                log.warn(f"【{self.index_type}】{torrent_name} 检索名为空，跳过！")
+                index_error += 1
+                continue
+            if torrent_name ==None or torrent_name.find(self._keyword) < 0:
+                log.warn(f"【{self.index_type}】{torrent_name} Torrent名称中不含检索信息，跳过！")
+                index_error += 1
                 continue
             # 识别种子名称
             meta_info = MetaInfo(title=torrent_name, subtitle=description)

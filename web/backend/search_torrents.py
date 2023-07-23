@@ -43,7 +43,6 @@ def search_medias_for_web(content, ident_flag=True, filters=None, tmdbid=None, m
     # 识别媒体
     media_info = None
     if ident_flag:
-
         # 有TMDBID或豆瓣ID
         if tmdbid:
             media_info = WebUtils.get_mediainfo_from_id(mtype=mtype, mediaid=tmdbid)
